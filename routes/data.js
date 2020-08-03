@@ -20,6 +20,18 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage});
 
+
+router.get('/', (req, res) => {
+    Book.find({}).exec(function(err,Books){
+        if(err){
+            console.log("error getting books");
+        }else{
+            res.render('homepagepub', {Books: Books});
+            console.log(Books);
+        }
+    })
+});
+
 //Page for register
 router.delete('/:bookId', (req, res) => {
     try{
