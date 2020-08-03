@@ -247,19 +247,37 @@ router.post('/basket/private', ensureAuthenticated, (req, res) => {
         if(err){
             console.log("error getting books");
         }else{  
-            // const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a),0);
-            // var occurences = [{}];
-            // basket.products.forEach(prod => {
-            //     occurences.forEach(occ => {
-            //         if(occ.Id != prod){
-            //             occurences.push({Id: prod,occurences: 1});
-            //         }else{
-            //             occ.occurences++;
-            //         }
-            //     });
-            // });
-            console.log(occurences);
-            
+            var occurences = [{}];
+            if(basket.products != null){
+                basket.products.forEach(prod => {
+                    occurences.forEach(occ => {
+                        if(occ.Id != prod){
+                            occurences.push({Id: prod,occurences: 1});
+                        }else{
+                            occ.occurences++;
+                        }
+                    });
+                });
+
+                console.log(occurences);
+            var booksupdate = [];
+            occurences.forEach(occurence => {
+                if(occurence != {}){
+                    Book.findOne({_id: occurence.Id}).exec(function(err,book){
+                        if(err || book == null){
+                            console.log("error finding book");
+                        }else{
+                            console.log(book);
+                            book.stock -= occurence.occurences;
+                            book.save().then(basket => {
+                    
+                            }).catch(err => console.log(err));
+                        }
+                    })
+                }
+                
+            });
+            }
             const products = basket.products;
             console.log(products);
             const order = new Order({
