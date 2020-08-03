@@ -1,0 +1,105 @@
+
+<link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+<script src="https://unpkg.com/js-datepicker"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Aston Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/data/books/private">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <% if(user.isAdmin) {%>
+          <li class="nav-item">
+            <a class="nav-link" href="/data/books/dash">Dashboard</a>
+          </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/data/orders/dash">Orders</a>
+        </li>
+        <% } %> 
+      </ul>
+      <a href="/data/basket/private" class="btn">Basket</a>
+      <a href="/users/logout" class="btn btn-secondary">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main content sectionz -->
+  <h1 style="padding-top:10px;">Basket</h1>
+  <% var total = 0 %> 
+    <ul class="list-group" style="padding-top: 5px;">
+      <% Books.forEach(function (book) { %>
+        <% var Stock = 0 %>  
+        <% for (var i = 0; i < Prods.length; i++) { %>
+          <% if(Prods[i].equals(book._id)) {%>
+            <% Stock++ %>
+            <% total += book.price %>
+          <% } %>  
+        <% } %>  
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= book.title %>
+          <form action="/data/basket/remove" method="POST">
+            <input type="hidden" value="<%= book._id %>" name="bookId" id="bookId"/>
+          <div > Quantity: <%= Stock %><button class="btn btn-secondary" href="" style="background-color: black;color: white;margin-left: 5px;">-</button>  </div>
+        </form>
+        </li>    
+        
+      <% }) %>
+    </ul>
+        <form action="/data/basket/private" method="POST">
+          <input type="hidden" value="<%= Prods %>">
+          <div class="row">
+          <div class="col-sm-6">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name" id="title" value="<%= typeof name != 'undefined' ? name : '' %>" required="true">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Email</label>
+            <input type="text" name="email" id="email" class="form-control" placeholder="Email" id="title" value="<%= typeof email != 'undefined' ? email : '' %>" required="true">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Address Line 1</label>
+            <input type="text" name="address1"  id="address1" class="form-control" placeholder="Address" id="title" value="<%= typeof address1 != 'undefined' ? address1 : '' %>" required="true">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Post Code</label>
+            <input type="text" name="postcode" id="postcode" class="form-control" placeholder="Name" id="title" value="<%= typeof postcode != 'undefined' ? postcode : '' %>" required="true">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">House Number</label>
+            <input type="text" name="houseno" id="houseno" class="form-control" placeholder="Name" id="title" value="<%= typeof houseno != 'undefined' ? houseno : '' %>" required="true">
+          </div>
+          
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Address Line 2</label>
+            <input type="text" name="address2" id="address2" class="form-control" placeholder="Address" id="title" value="<%= typeof address2 != 'undefined' ? address2 : '' %>">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Promo Code</label>
+            <input type="text" name="promo" id="promo" class="form-control" placeholder="Promo" id="title" value="">
+          </div>
+        </div>
+        </form>
+        <div class="col-sm-6"><button class="btn btn-secondary" href="" style="background-color: black;color: white;margin-left: 5px;">Checkout</button>
+          Total: £<%= total %></div>
+        
+    
+    </div>
+</div>

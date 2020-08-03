@@ -1,0 +1,38 @@
+
+<link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+<script src="https://unpkg.com/js-datepicker"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Aston Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/data/books/private">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/data/books/dash">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/data/orders/dash">Orders</a>
+        </li>
+      </ul>
+      <a href="/users/basket" class="btn">Basket</a>
+      <a href="/users/logout" class="btn btn-secondary">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main content sectionz -->
+  <h1>Orders</h1>
+    <ul class="list-group" style="padding-top: 5px;">
+      <% Orders.forEach(function (order) { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Order
+        </li>      
+      <% }) %>
+    </ul>
+    </div>
+</div>

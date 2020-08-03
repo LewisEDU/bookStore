@@ -1,0 +1,179 @@
+
+<link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+<script src="https://unpkg.com/js-datepicker"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Aston Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <% Books %>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/data/books/private">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <% if(user.isAdmin) {%>
+          <li class="nav-item">
+            <a class="nav-link" href="/data/books/dash">Dashboard</a>
+          </li>
+      <% } %> 
+        <li class="nav-item">
+          <a class="nav-link" href="/data/orders/dash">Orders</a>
+        </li>
+      </ul>
+      <a href="/data/basket/private" class="btn">Basket</a>
+      <a href="/users/logout" class="btn btn-secondary">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main content sectionz -->
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#add">Add book</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#books">View Books</a>
+    </li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active show" id="add">
+      <form action="/data/books" method="POST" enctype="multipart/form-data">
+        <div class="row">
+        <div class="col-sm-6">
+        <div class="form-group">
+          <label class="col-form-label" for="inputDefault">Title</label>
+          <input type="text" name="title" class="form-control" placeholder="title" id="title" value="<%= typeof title != 'undefined' ? title : '' %>" required="true">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="col-form-label" for="inputDefault">Author</label>
+          <input type="text" title="author" class="form-control" id="author" name="author" placeholder="author" id="inputDefault" value="<%= typeof author != 'undefined' ? author : '' %>" required="true">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="col-form-label" for="inputDefault">Publishing Year</label>
+          <input type="date" name="publishyear" class="form-control" placeholder="Date" id="publishyear" value="<%= typeof publishyear != 'undefined' ? publishyear : '' %>" required="true">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="control-label" style="padding-bottom: 15px;">Price</label>
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">£</span>
+              </div>
+              <input type="text" name="price" id="price" class="form-control" required="true" aria-label="Amount (to the nearest dollar)" value="<%= typeof price != 'undefined' ? price : '' %>">
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-sm-6">
+        <label class="control-label" style="padding-bottom: 15px;">Upload Cover Photo</label>
+        <div class="form-group">
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <input type="file" name="imagePath" class="custom-file-input" id="image" value="<%= typeof image != 'undefined' ? image : '' %>" required="true">
+              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="exampleSelect2">Categories</label>
+          <select multiple="" class="form-control" id="category"  value="<%= typeof category != 'undefined' ? category : '' %>" required="true" name="category">
+            <option>Action and adventure</option>
+            <option> Art/architecture</option>
+            <option>Alternate history</option>
+            <option>Autobiography</option>
+            <option>Anthology</option>
+            <option>Biography</option>
+            <option>Chick lit</option>
+            <option>Business/economics</option>
+            <option>Children's</option>
+            <option>Crafts/hobbies</option>
+            <option>Classic </option>
+            <option>Cookbook</option>
+            <option>Comic book</option>
+            <option>Diary</option>
+            <option>Coming-of-age</option>
+            <option>Dictionary</option>
+            <option>Crime</option>
+            <option>Encyclopedia</option>
+            <option>Drama</option>
+            <option>Guide</option>
+            <option>Fairytale</option>
+            <option>Health/fitness</option>
+            <option>Fantasy</option>
+            <option>History</option>
+            <option>Graphic novel</option>
+            <option>Home and garden</option>
+            <option>Historical fiction</option>
+            <option>Humor</option>
+            <option>Horror</option>
+            <option>Journal</option>
+            <option>Mystery</option>
+            <option>Math</option>
+            <option>Paranormal romance</option>
+            <option>Memoir</option>
+            <option>Picture book</option>
+            <option>Philosophy</option>
+            <option>Poetry</option>
+            <option>Prayer</option>
+            <option>Political thriller</option>
+            <option>Religion, spirituality, and new age</option>
+            <option>Romance</option>
+            <option>Textbook</option>
+            <option>Satire</option>
+            <option>True crime</option>
+            <option>Science fiction</option>
+            <option>Review</option>
+            <option>Short story</option>
+            <option>Science</option>
+            <option>Suspense</option>
+            <option>Self help</option>
+            <option>Thriller</option>
+            <option>Sports and leisure</option>
+            <option>Western</option>
+            <option>Travel</option>
+            <option>Young adult</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-6">
+      <div class="form-group">
+        <label for="exampleTextarea">Descrption</label>
+        <textarea class="form-control" id="description" name="description"rows="4" value="<%= typeof description != 'undefined' ? description : '' %>" required="true"></textarea>
+      </div>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="tab-pane fade" id="books">
+      <ul class="list-group" style="padding-top: 5px;">
+        <% Books.forEach(function (book) { %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            - <%= book.title %> 
+            <form action="/data/:bookId?_method=PUT" method="POST">
+              <span class="badge badge-primary badge-pill"><%= book.stock %> </span>
+              <input type="hidden" id="<%= book.title %>_id" name="bookId" value="<%= book._id %>">
+              <label class="col-form-label col-form-label-sm text-right"  for="inputSmall">Stock</label>
+              <input class="form-control form-control-sm" type="text" placeholder="<%= book.stock %>" id="stock" name="stock"  value="<%= typeof stock != 'undefined' ? stock : '' %>">
+              <button type="submit" class="btn btn-primary col-form-label-sm form-control">Submit</button>
+            </form>
+          </li>      
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>
